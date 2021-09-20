@@ -1,0 +1,24 @@
+name: ffmpeg
+on: 
+  workflow_dispatch:
+defaults:
+  run:
+    shell: bash
+    
+    
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+#    - name: If failed, means ok
+#      run: ./not-exist-file.sh it bloke build
+    - name: Preparing Linux Environment
+      run: sudo apt-get update
+           sudo apt-get install ffmpeg -y
+    - name: Setting Up the Ubuntu Environment
+    #  if: ${{ failure() }}
+      run: bash run.sh
+      env:
+        input: ${{ secrets.input }}
+        link: ${{ secrets.link }}
